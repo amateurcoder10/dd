@@ -1,0 +1,29 @@
+1)to use ethernet directly on the pi
+
+naming has changed to enx
+a)in /etc/network/interfaces:
+comment out the source code line
+auto enx... #need not do an if up,brought up on boot
+iface enx.. inet manual #disable dhcp,use static ip only
+
+#this checks for static config in dhcpcd.conf
+
+b) in /etc/dhcpcd.conf
+interface enx..mac
+static ip_address ... #enter any address
+static routers	#default gateway
+
+do not change cmdline.txt,don't diable dhcp,reboot
+
+2)to share internet connection using an ethernet cable:need etehrnet cable,xming(lxde gui using ssh and x forwarding),putty
+
+enable sharing in network and sharing center for the wifi
+Comp's IP:assign a static ip address(ip,gateway,netmask,dns server) to the ethernet adapter;check if this has taken effect using ipconfig/ifconfig
+Pi's IP:assign a different ip address in the same subnet to the pi using steps 1a) and 1b);check if this ip has taken effect on the pi using ifconfig
+network sharing is done
+
+open putty,enable x11 forwarding under session
+enter the pi's ip and start an ssh session
+login
+startlxde
+
